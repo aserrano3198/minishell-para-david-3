@@ -13,4 +13,18 @@
 # include <string.h>
 # include "../srcs/libft/libft.h"
 
+int lsh_cd(char **args);
+int lsh_exit();
+
+char *builtin_str[] = {
+    "cd",
+    "exit"
+};
+
+int (*builtin_func[]) (char **) = {
+    &lsh_cd,
+    &lsh_exit
+};
+
+
 #endif

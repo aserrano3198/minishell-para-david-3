@@ -10,7 +10,7 @@ LIBFT_PATH = srcs/libft
 
 #--------------------Recursos---------------------------#
 
-SRCS =	main.c
+SRCS =	prueba.c
 
 INCLUDES = minishell.h
 

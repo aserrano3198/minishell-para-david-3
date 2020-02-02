@@ -11,8 +11,8 @@
   Function Declarations for builtin shell commands:
  */
 int lsh_cd(char **args);
-int lsh_help();
-int lsh_exit();
+int lsh_help(char **args);
+int lsh_exit(char **args);
 
 /*
   List of builtin commands, followed by their corresponding functions.
@@ -59,7 +59,7 @@ int lsh_cd(char **args)
    @param args List of args.  Not examined.
    @return Always returns 1, to continue executing.
  */
-int lsh_help()
+int lsh_help(char **args)
 {
   int i;
   ft_printf("Stephen Brennan's LSH\n");
@@ -79,7 +79,7 @@ int lsh_help()
    @param args List of args.  Not examined.
    @return Always returns 0, to terminate execution.
  */
-int lsh_exit()
+int lsh_exit(char **args)
 {
   return 0;
 }
@@ -194,4 +194,3 @@ int main(void)
     free(args);
   }
   return (0);
-}
