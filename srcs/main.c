@@ -5,19 +5,14 @@
   @brief        LSH (Libstephen SHell)
 *******************************************************************************/
 
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "libft.h"
+#include "../includes/minishell.h"
 
 /*
   Function Declarations for builtin shell commands:
  */
 int lsh_cd(char **args);
-int lsh_help(char **args);
-int lsh_exit(char **args);
+int lsh_help();
+int lsh_exit();
 
 /*
   List of builtin commands, followed by their corresponding functions.
@@ -64,7 +59,7 @@ int lsh_cd(char **args)
    @param args List of args.  Not examined.
    @return Always returns 1, to continue executing.
  */
-int lsh_help(char **args)
+int lsh_help()
 {
   int i;
   ft_printf("Stephen Brennan's LSH\n");
@@ -84,7 +79,7 @@ int lsh_help(char **args)
    @param args List of args.  Not examined.
    @return Always returns 0, to terminate execution.
  */
-int lsh_exit(char **args)
+int lsh_exit()
 {
   return 0;
 }
@@ -199,3 +194,4 @@ int main(void)
     free(args);
   }
   return (0);
+}
