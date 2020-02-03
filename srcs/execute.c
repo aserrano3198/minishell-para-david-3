@@ -16,6 +16,8 @@ int     exec_command(shell_t *shell)
             return (builtin_echo(shell));
 	else if (!ft_strncmp(shell->cmd_exec_parsed[0], "pwd", 4))
             return (builtin_pwd(shell));
+	else if (!ft_strncmp(shell->cmd_exec_parsed[0], "export", 6))
+            return (builtin_export(shell));
     else
         return (launch(shell, shell->cmd_exec_parsed[0]));
 }

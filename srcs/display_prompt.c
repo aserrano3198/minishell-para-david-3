@@ -41,6 +41,28 @@ void        set_env_var(shell_t *shell, char *env, char *new_path)
         }
 }
 
+// Funcion que añade una nueva variable de entorno
+void        add_env_var(shell_t *shell, char *new_env)
+{
+    int     i;
+    char    **env;
+    int     cpy;
+
+    i = 0;
+    cpy = -1;
+    while (shell->env[i])
+        i++;
+    if (!(env = (char **)malloc(sizeof(char*) * (i + 2))))
+        return ;
+    i = -1;
+    while (shell->env[++i])
+        env[i] = shell->env[i];
+    env[i] = ft_strdup(new_env);
+    env[i + 1] = NULL;
+    free(shell->env);
+    shell->env = env;
+}
+
 void        display_prompt(shell_t *shell)
 {
     char    *path_dir;
