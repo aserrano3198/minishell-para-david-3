@@ -1,0 +1,18 @@
+Cosas que quedan por hacer:
+- builtin_export
+- builtin_unset
+- el comportamineto para " y '
+- redirecciones <, > y “>>”
+- pipes
+- variables de entorno
+- $?
+- ctrl-C, ctrl-D y ctrl-\
+Cosas hechas
+- prompt
+- lanzar ejecutables
+- builtin_echo
+- builtin_cd
+- builtin_pwd
+- builtin_exit
+- builtin_env
+- varios comando con ";"
