@@ -20,9 +20,10 @@ typedef struct  shell_s
     char    **cmd_exec_parsed;
 }               shell_t;
 
+int     builtin_pwd(shell_t *shell);
 int		builtin_echo(shell_t *shell);
 int     builtin_cd(shell_t *shell);
-int     builtin_exit(shell_t *shellm);
+int     builtin_exit(shell_t *shell);
 void    display_prompt(shell_t *shell);
 char    *get_env_var(shell_t *shell, char *env, char *delim);
 void    set_env_var(shell_t *shell, char *env, char *new_path);
