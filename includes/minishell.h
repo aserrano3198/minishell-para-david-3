@@ -25,6 +25,7 @@ int     builtin_exit(shell_t *shellm);
 void    display_prompt(shell_t *shell);
 char    *get_env_var(shell_t *shell, char *env, char *delim);
 void    set_env_var(shell_t *shell, char *env, char *new_path);
+int     builtin_env(shell_t *shell);
 int     ft_error(char *str);
 int     parse_commands(shell_t *shell);
 int     launch(shell_t *shell);

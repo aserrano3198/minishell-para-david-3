@@ -11,7 +11,8 @@ LIBFT_PATH = srcs/libft
 #--------------------Recursos---------------------------#
 
 SRCS =	main_shell.c parse_commands.c launch_cmd.c execute.c \
-		errors.c builtin_exit.c builtin_cd.c display_prompt.c
+		errors.c builtin_exit.c builtin_cd.c display_prompt.c \
+		builtin_env.c
 
 INCLUDES = minishell.h
 

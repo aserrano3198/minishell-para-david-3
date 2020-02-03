@@ -13,7 +13,10 @@ char        *get_env_var(shell_t *shell, char *env, char *delim)
     i = -1;
     while (shell->env[++i])
         if ((ft_strncmp(shell->env[i], env, len_path)) == 0)
+        {
             tmp = ft_strrchr(shell->env[i], delim[0]);
+            break ;
+        }
     path = ft_strtrim(tmp, delim);
     return (path);
 }
@@ -34,6 +37,7 @@ void        set_env_var(shell_t *shell, char *env, char *new_path)
             tmp = ft_strjoin(env, "=");
             shell->env[i] = ft_strjoin(tmp, new_path);
             free(tmp);
+            return ;
         }
 }
 

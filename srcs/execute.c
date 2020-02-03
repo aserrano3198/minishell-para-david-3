@@ -8,6 +8,8 @@ int     exec_command(shell_t *shell)
             return (builtin_cd(shell));
     else if (!ft_strncmp(shell->cmd_exec_parsed[0], "exit", 4))
             return (builtin_exit(shell));
+    else if (!ft_strncmp(shell->cmd_exec_parsed[0], "env", 3))
+            return (builtin_env(shell));
     else
         return (launch(shell));
 }
