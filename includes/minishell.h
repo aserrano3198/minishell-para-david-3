@@ -13,18 +13,21 @@
 # include <string.h>
 # include "../srcs/libft/libft.h"
 
-int lsh_cd(char **args);
-int lsh_exit();
+typedef struct  shell_s
+{
+    char    **env;
+    char    **commands;
+    char    **cmd_exec_parsed;
+}               shell_t;
 
-char *builtin_str[] = {
-    "cd",
-    "exit"
-};
-
-int (*builtin_func[]) (char **) = {
-    &lsh_cd,
-    &lsh_exit
-};
-
+int     builtin_cd(shell_t *shell);
+int     builtin_exit(shell_t *shellm);
+void    display_prompt(shell_t *shell);
+char    *get_env_var(shell_t *shell, char *env, char *delim);
+void    set_env_var(shell_t *shell, char *env, char *new_path);
+int     ft_error(char *str);
+int     parse_commands(shell_t *shell);
+int     launch(shell_t *shell);
+int     exec_command(shell_t *shell);
 
 #endif
