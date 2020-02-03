@@ -20,6 +20,7 @@ typedef struct  shell_s
     char    **cmd_exec_parsed;
 }               shell_t;
 
+int		builtin_echo(shell_t *shell);
 int     builtin_cd(shell_t *shell);
 int     builtin_exit(shell_t *shellm);
 void    display_prompt(shell_t *shell);
