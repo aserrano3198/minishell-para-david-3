@@ -30,7 +30,7 @@ void    set_env_var(shell_t *shell, char *env, char *new_path);
 int     builtin_env(shell_t *shell);
 int     ft_error(char *str);
 int     parse_commands(shell_t *shell);
-int     launch(shell_t *shell);
+int     launch(shell_t *shell, char *path_exec);
 int     exec_command(shell_t *shell);
 
 #endif

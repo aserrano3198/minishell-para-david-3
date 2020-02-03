@@ -14,7 +14,7 @@ int        builtin_echo(shell_t *shell)
         i++;
         flag = 1;
     }
-    while (shell->cmd_exec_parsed[i])
+    while ((shell->cmd_exec_parsed[i]) && (o = -1))
     {
         while (shell->cmd_exec_parsed[i][++o])
             if (shell->cmd_exec_parsed[i][o] != '\"')

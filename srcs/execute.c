@@ -17,5 +17,5 @@ int     exec_command(shell_t *shell)
 	else if (!ft_strncmp(shell->cmd_exec_parsed[0], "pwd", 4))
             return (builtin_pwd(shell));
     else
-        return (launch(shell));
+        return (launch(shell, shell->cmd_exec_parsed[0]));
 }

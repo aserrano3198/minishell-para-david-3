@@ -31,14 +31,34 @@ shell_t     *init_save_env(int argc, char *argv[], char *env[])
     return (shell);
 }
 
+void        banner(shell_t *shell)
+{
+    launch(shell, "/usr/bin/clear");
+    ft_printf("\e[90m/********************************************************\\\e[0m\n");
+    ft_printf("\e[90m/*                                                      *\\\n");
+    ft_printf("\e[90m/*\e[0m  \e[35m   ,-.-. o       o       |           |     |     \e[0m   \e[90m*\\\e[0m\n");
+    ft_printf("\e[90m/*\e[0m  \e[35m   | | | | ,---. |       |---.       |     |    \e[0m    \e[90m*\\\e[0m\n");
+    ft_printf("\e[90m/*\e[0m  \e[35m   | | | | |   | | ,---. |   | ,---. |     |    \e[0m    \e[90m*\\\e[0m\n");
+    ft_printf("\e[90m/*\e[0m  \e[35m   | | | | |   | | `---. |   | |---' |     |    \e[0m    \e[90m*\\\e[0m\n");
+    ft_printf("\e[90m/*\e[0m  \e[35m   ` ' ' ` `   ` ` `---' `   ' `---' `---' `---'\e[0m    \e[90m*\\\e[0m\n");
+    ft_printf("\e[90m/*                                                      *\\\e[0m\n");
+    ft_printf("\e[90m/*                                                      *\\\e[0m\n");
+    ft_printf("\e[90m/*\e[0m     \e[36mDeveloped by:      aserrano\e[0m                      \e[90m*\\\e[0m\n");
+    ft_printf("\e[90m/*\e[0m                      \e[36m  pcuadrad     \e[0m                 \e[90m*\\\e[0m\n");
+    ft_printf("\e[90m/*                                                      *\\\e[0m\n");
+    ft_printf("\e[90m/********************************************************\\\e[0m\n");
+}
+
 int         main(int argc, char *argv[], char *env[])
 {
     char    *line;
     int     status;
     shell_t *shell;
 
+    
     if (!(shell = init_save_env(argc, argv, env)))
         return (ft_error("Failed allocate memory"));
+    banner(shell);
     status = 1;
     while (status)
     {

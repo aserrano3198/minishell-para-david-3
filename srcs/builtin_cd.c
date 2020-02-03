@@ -9,9 +9,9 @@ int     builtin_cd(shell_t *shell)
     char    tmp1[4097];
 
     old_path = getcwd(tmp1, 4096);
-    if (shell->cmd_exec_parsed[2] != NULL)
+    if (shell->cmd_exec_parsed[1] != NULL && shell->cmd_exec_parsed[2] != NULL)
         ft_printf("cd: string not in pwd: %s\n", shell->cmd_exec_parsed[1]);
-    else if (shell->cmd_exec_parsed[1] == NULL || !ft_strncmp(shell->cmd_exec_parsed[1], "~", 2))
+    if (shell->cmd_exec_parsed[1] == NULL || !ft_strncmp(shell->cmd_exec_parsed[1], "~", 2))
     {
         home_path = get_env_var(shell, "HOME", "=");
         chdir(home_path);

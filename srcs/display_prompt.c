@@ -48,7 +48,7 @@ void        display_prompt(shell_t *shell)
 
     user = get_env_var(shell, "USER", "=");
     path_dir = get_env_var(shell, "PWD", "/");
-    ft_printf("%s@minishell %s > ", user, path_dir);
+    ft_printf("\033[32m%s\033[0m@\033[33mminishell\033[0m \033[34m%s\033[0m > ", user, path_dir);
     free(path_dir);
     free(user);
 }
