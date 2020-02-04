@@ -4,7 +4,8 @@ Cosas que quedan por hacer:
 - redirecciones <, > y “>>”
 - pipes
 - variables de entorno
-- $?
+- $?   -----> Por lo que he buscado este comando contiene el resultado del ultimo comando ejecutado:
+                127 si el comando anterior a fallado y 0 si se ha ejecutado correctamente.
 - ctrl-C, ctrl-D y ctrl-\
 Cosas hechas
 - prompt

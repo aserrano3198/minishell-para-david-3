@@ -23,6 +23,7 @@ typedef struct  shell_s
 int     builtin_pwd(shell_t *shell);
 int		builtin_echo(shell_t *shell);
 int     builtin_cd(shell_t *shell);
+int     ft_strlenchr(char *str, char delim);
 int     builtin_exit(shell_t *shell);
 int     builtin_export(shell_t *shell);
 void    display_prompt(shell_t *shell);

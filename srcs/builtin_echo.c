@@ -9,7 +9,7 @@ int        builtin_echo(shell_t *shell)
     i = 1;
     o = -1;
     flag = 0;
-    if (ft_strncmp(shell->cmd_exec_parsed[1], "-n", 2) == 0)
+    if (shell->cmd_exec_parsed[1] && ft_strncmp(shell->cmd_exec_parsed[1], "-n", 2) == 0)
     {
         i++;
         flag = 1;
