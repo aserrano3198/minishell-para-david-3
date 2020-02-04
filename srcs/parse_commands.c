@@ -35,7 +35,7 @@ size_t          ft_arraylen(char **array)
     return (i);
 }
 
-void            ft_arraydelone(char ***array, char **to_delete)
+char            **ft_arraydelone(char **array, char *to_delete)
 {
     size_t      len_array;
     size_t      len_delete;
@@ -43,30 +43,21 @@ void            ft_arraydelone(char ***array, char **to_delete)
     int         i;
     int         j;
 
-    len_delete = ft_strlen(*to_delete);
-    len_array = ft_arraylen(*array);
-    ft_printf("Len array: %d\n", len_array);
+    len_delete = ft_strlen(to_delete);
+    len_array = ft_arraylen(array);
     if (!(new_array = (char**)malloc(sizeof(char*) * (len_array))))
-        return ;
-    i = 0;
+        return (NULL);
+    i = -1;
     j = 0;
-    while (*array[i])
-    {
-        ft_printf("%s -- %s\n", *array[i], *to_delete);
-        if (ft_strncmp(*array[i], *to_delete, len_delete) != 0)
-        {
-            new_array[j] = *array[i];
-            ft_printf("New array: %s -- Old array: %s\n", new_array[j], *array[i]);
-            j++;
-        }
-        i++;
-    }
-    ft_printf("Finish\n");
+    while (array[++i])
+        if (ft_strncmp(array[i], to_delete, len_delete) != 0)
+            new_array[j++] = array[i];
     new_array[j] = NULL;
     free(array);
     free(to_delete);
-    ***array = **new_array;
+    return (new_array);
 }
+
 
 void            update_command(shell_t *shell, char **cmnd_to_upd, int status)
 {
@@ -102,7 +93,7 @@ void            update_command(shell_t *shell, char **cmnd_to_upd, int status)
             *cmnd_to_upd = get_env_var(shell, env_var, "=");
         }
         else
-            ft_arraydelone(&shell->cmd_exec_parsed, cmnd_to_upd);
+            shell->cmd_exec_parsed = ft_arraydelone(shell->cmd_exec_parsed, ft_strdup(*cmnd_to_upd));
     }
     free(env_var);
 }
