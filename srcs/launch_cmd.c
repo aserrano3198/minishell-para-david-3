@@ -4,6 +4,7 @@ int     launch(shell_t *shell, char *path_exec)
 {
     pid_t   pid;
 
+    //path_exec = ft_strjoin("/bin/", path_exec);
     pid = fork();
     if (pid == 0)
     {
@@ -18,5 +19,6 @@ int     launch(shell_t *shell, char *path_exec)
         return (ft_error("minishell: fork failed."));
     else
         wait(&pid);
+    //free(path_exec);
     return (1);
 }

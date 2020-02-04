@@ -18,6 +18,7 @@ typedef struct  shell_s
     char    **env;
     char    **commands;
     char    **cmd_exec_parsed;
+    int     fd[2];
 }               shell_t;
 
 int     builtin_pwd(shell_t *shell);

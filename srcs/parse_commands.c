@@ -115,6 +115,54 @@ void            parse_env_vars(shell_t *shell)
     }
 }
 
+void            ft_pipe(shell_t *shell, char *command_execute)
+{
+    char **pipetab;
+    pid_t   pid1;
+    pid_t   pid2;
+    int in;
+    int out;
+
+    in = dup(STDIN_FILENO);
+    out = dup(STDOUT_FILENO);
+    pipe(shell->fd);
+    pipetab = ft_split(command_execute, '|');
+    pid1 = fork();
+    if (pid1 == 0)
+    {
+        close(shell->fd[0]);
+        dup2(shell->fd[1], STDOUT_FILENO);
+        close(shell->fd[1]);
+        shell->cmd_exec_parsed = ft_split(pipetab[0], ' ');
+        free(pipetab[0]);
+        parse_env_vars(shell);
+        exec_command(shell);
+        free_command(shell->cmd_exec_parsed);
+    }
+    else
+    {
+        pid2 = fork();
+        if (pid2 == 0)
+        {
+            close(shell->fd[1]);
+            dup2(shell->fd[0], STDIN_FILENO);
+            close(shell->fd[0]);
+            shell->cmd_exec_parsed = ft_split(pipetab[1], ' ');
+            free(pipetab[1]);
+            parse_env_vars(shell);
+            exec_command(shell);
+            free_command(shell->cmd_exec_parsed);
+        } 
+        else
+        {
+            wait(NULL);
+            dup2(out, 1);
+            wait(NULL);
+            dup2(in, 0);
+        } 
+    } 
+}
+
 int             parse_commands(shell_t *shell)
 {
     int     i;
@@ -123,7 +171,13 @@ int             parse_commands(shell_t *shell)
     i = -1;
     while (shell->commands[++i])
     {
+        
         command_execute = ft_strtrim(shell->commands[i], " ");
+        if (ft_strnstr(shell->commands[i], " | ", ft_strlen(shell->commands[i])))
+        {
+            ft_pipe(shell, command_execute);
+            continue ;
+        }
         free(shell->commands[i]);
         shell->cmd_exec_parsed = ft_split(command_execute, ' ');
         free(command_execute);

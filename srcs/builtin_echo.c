@@ -18,12 +18,12 @@ int        builtin_echo(shell_t *shell)
     {
         while (shell->cmd_exec_parsed[i][++o])
             if (shell->cmd_exec_parsed[i][o] != '\"')
-                write (1, shell->cmd_exec_parsed[i] + o, 1);
+                write (STDOUT_FILENO, shell->cmd_exec_parsed[i] + o, 1);
         if (shell->cmd_exec_parsed[i + 1])
-            write (1, " ", 1);
+            write (STDOUT_FILENO, " ", 1);
         i++;
     }
     if (!flag)
-        write(1, "\n", 1);
+        write(STDOUT_FILENO, "\n", 1);
     return (1);
 }
