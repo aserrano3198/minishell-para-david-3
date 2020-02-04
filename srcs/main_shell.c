@@ -28,6 +28,8 @@ shell_t     *init_save_env(int argc, char *argv[], char *env[])
     while (env[++i])
         if (!(shell->env[i] = ft_strdup(env[i])))
             return (NULL);
+    shell->fd[0] = 1;
+    shell->fd[1] = 1;
     return (shell);
 }
 
@@ -62,7 +64,6 @@ int         main(int argc, char *argv[], char *env[])
     int     status;
     shell_t *shell;
 
-    
     if (!(shell = init_save_env(argc, argv, env)))
         return (ft_error("Failed allocate memory"));
     banner(shell);
@@ -77,6 +78,5 @@ int         main(int argc, char *argv[], char *env[])
         free(line);
         status = parse_commands(shell);
         free(shell->commands);
-    }
-    return (0);
+    }    return (0);
 }

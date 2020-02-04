@@ -156,9 +156,9 @@ void            ft_pipe(shell_t *shell, char *command_execute)
         else
         {
             wait(NULL);
-            dup2(out, 1);
             wait(NULL);
-            dup2(in, 0);
+            dup2(1, 1);
+            dup2(0, 0);
         } 
     } 
 }
