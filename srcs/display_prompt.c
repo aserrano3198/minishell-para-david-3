@@ -28,13 +28,13 @@ void        set_env_var(shell_t *shell, char *env, char *new_path)
     char    *tmp;
     size_t  len_path;
 
-    len_path = ft_strlen(env);
+    tmp = ft_strjoin(env, "=");
+    len_path = ft_strlen(tmp);
     i = -1;
     while (shell->env[++i])
-        if ((ft_strncmp(shell->env[i], env, len_path)) == 0)
+        if ((ft_strncmp(shell->env[i], tmp, len_path)) == 0)
         {
             free(shell->env[i]);
-            tmp = ft_strjoin(env, "=");
             shell->env[i] = ft_strjoin(tmp, new_path);
             free(tmp);
             return ;
@@ -42,11 +42,12 @@ void        set_env_var(shell_t *shell, char *env, char *new_path)
 }
 
 // Funcion que añade una nueva variable de entorno
-void        add_env_var(shell_t *shell, char *new_env)
+void        add_env_var(shell_t *shell, char *new_env, char *new_value)
 {
     int     i;
     char    **env;
     int     cpy;
+    char    *tmp;
 
     i = 0;
     cpy = -1;
@@ -57,10 +58,30 @@ void        add_env_var(shell_t *shell, char *new_env)
     i = -1;
     while (shell->env[++i])
         env[i] = shell->env[i];
-    env[i] = ft_strdup(new_env);
+    tmp = ft_strjoin(new_env, "=");
+    env[i] = ft_strjoin(tmp, new_value);
+    free(tmp);
     env[i + 1] = NULL;
     free(shell->env);
     shell->env = env;
+}
+
+int         find_env_var(shell_t *shell, char *env_to_find)
+{
+    int     i;
+    size_t  len_path;
+    char    *tmp;
+
+    tmp = ft_strjoin(env_to_find, "=");
+    len_path = ft_strlen(tmp);
+    i = -1;
+    while (shell->env[++i])
+        if ((ft_strncmp(shell->env[i], tmp, len_path)) == 0)
+        {
+            free(tmp);
+            return (1);
+        }
+    return (0);
 }
 
 void        display_prompt(shell_t *shell)

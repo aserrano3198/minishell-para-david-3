@@ -1,5 +1,4 @@
 Cosas que quedan por hacer:
-- builtin_export
 - builtin_unset
 - el comportamineto para " y '
 - redirecciones <, > y “>>”
@@ -16,3 +15,4 @@ Cosas hechas
 - builtin_exit
 - builtin_env
 - varios comando con ";"
+- builtin_export
