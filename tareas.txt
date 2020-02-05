@@ -5,7 +5,7 @@ Cosas que quedan por hacer:
 - redirecciones <, > y “>>”
 - pipes
 - $?
-- ctrl-C y ctrl-\
+- ctrl-\
 
 
 Cosas hechas
@@ -21,3 +21,4 @@ Cosas hechas
 - variables de entorno
 - builtin_unset
 - ctrl-D
+- ctrl-C

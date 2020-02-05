@@ -102,14 +102,7 @@ int        del_env_var(shell_t *shell, char *env_to_del)
     return (0);
 }
 
-void        display_prompt(shell_t *shell)
+void        display_prompt()
 {
-    char    *path_dir;
-    char    *user;
-
-    user = get_env_var(shell, "USER", "=");
-    path_dir = get_env_var(shell, "PWD", "/");
-    ft_printf("\033[32m%s\033[0m@\033[33mminishell\033[0m \033[34m%s\033[0m > ", user, path_dir);
-    free(path_dir);
-    free(user);
+    ft_printf("\033[33mminishell\033[0m > ");
 }

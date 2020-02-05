@@ -29,7 +29,7 @@ int     ft_strlenchr(char *str, char delim);
 int     builtin_exit(shell_t *shell);
 int     builtin_export(shell_t *shell);
 int     builtin_unset(shell_t *shell);
-void    display_prompt(shell_t *shell);
+void    display_prompt();
 char    **ft_arraydelone(char **array, char *to_delete);
 void    add_env_var(shell_t *shell, char *new_env, char *new_value);
 int     find_env_var(shell_t *shell, char *env_to_find);
