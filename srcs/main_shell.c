@@ -53,9 +53,10 @@ void        banner(shell_t *shell)
 //Funcion para probar signal.
 //Control+C ahora no quita el programa.
 //Habria que hacer que haga un salto de linea y vuelva a mostrar el prompt y continue.
-void         test(int test)
+void         test_signal(int test)
 {
     (void)test;
+    ft_printf("\n\033[32m%s\033[0m@\033[33mminishell\033[0m \033[34m%s\033[0m > ", "user", "estohayquearrglarlo");
 }
 
 int         main(int argc, char *argv[], char *env[])
@@ -68,7 +69,7 @@ int         main(int argc, char *argv[], char *env[])
         return (ft_error("Failed allocate memory"));
     banner(shell);
     status = 1;
-    signal(SIGINT, test);
+    signal(SIGINT, test_signal);
     while (status)
     {
         display_prompt(shell);

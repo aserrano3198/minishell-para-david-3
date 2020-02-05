@@ -120,47 +120,57 @@ void            ft_pipe(shell_t *shell, char *command_execute)
     char **pipetab;
     pid_t   pid1;
     pid_t   pid2;
+    int     i;
     int in;
     int out;
 
+    i = -1;
     in = dup(STDIN_FILENO);
     out = dup(STDOUT_FILENO);
     pipe(shell->fd);
     pipetab = ft_split(command_execute, '|');
-    pid1 = fork();
-    if (pid1 == 0)
+    while (pipetab[++i])
     {
-        close(shell->fd[0]);
-        dup2(shell->fd[1], STDOUT_FILENO);
-        close(shell->fd[1]);
-        shell->cmd_exec_parsed = ft_split(pipetab[0], ' ');
-        free(pipetab[0]);
-        parse_env_vars(shell);
-        exec_command(shell);
-        free_command(shell->cmd_exec_parsed);
-    }
-    else
-    {
-        pid2 = fork();
-        if (pid2 == 0)
+        pid1 = fork();
+        if (pid1 == 0)
         {
-            close(shell->fd[1]);
-            dup2(shell->fd[0], STDIN_FILENO);
             close(shell->fd[0]);
-            shell->cmd_exec_parsed = ft_split(pipetab[1], ' ');
-            free(pipetab[1]);
+            dup2(shell->fd[1], STDOUT_FILENO);
+            close(shell->fd[1]);
+            shell->cmd_exec_parsed = ft_split(pipetab[i], ' ');
+            free(pipetab[0]);
             parse_env_vars(shell);
             exec_command(shell);
             free_command(shell->cmd_exec_parsed);
-        } 
+            close(shell->fd[0]);
+            exit(EXIT_SUCCESS);
+        }
         else
         {
-            wait(NULL);
-            wait(NULL);
-            dup2(1, 1);
-            dup2(0, 0);
+            pid2 = fork();
+            if (pid2 == 0)
+            {
+                close(shell->fd[1]);
+                dup2(shell->fd[0], STDIN_FILENO);
+                close(shell->fd[0]);
+                shell->cmd_exec_parsed = ft_split(pipetab[i + 1], ' ');
+                free(pipetab[1]);
+                parse_env_vars(shell);
+                exec_command(shell);
+                free_command(shell->cmd_exec_parsed);
+                exit(EXIT_SUCCESS);
+            } 
+            else
+            {
+                close(shell->fd[1]);
+                wait(NULL);
+                wait(NULL);
+                dup2(in, STDIN_FILENO);
+                dup2(out, STDOUT_FILENO);
+            } 
         } 
-    } 
+    }
+    
 }
 
 int             parse_commands(shell_t *shell)
