@@ -73,11 +73,15 @@ int         main(int argc, char *argv[], char *env[])
     {
         display_prompt();
         if (get_next_line(STDIN_FILENO, &line) == 0 && line[0] == '\0')
+        {
+            ft_printf("exit\n");
             break;
+        }
         shell->commands = ft_split(line, ';');
         free(line);
         status = parse_commands(shell);
         free(shell->commands);
     }
+    //Liberar todo
     return (EXIT_SUCCESS);
 }
