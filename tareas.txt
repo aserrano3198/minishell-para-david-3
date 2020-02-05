@@ -1,11 +1,13 @@
+
+
 Cosas que quedan por hacer:
-- builtin_unset
 - el comportamineto para " y '
 - redirecciones <, > y “>>”
 - pipes
-- $?   -----> Por lo que he buscado este comando contiene el resultado del ultimo comando ejecutado:
-                127 si el comando anterior a fallado y 0 si se ha ejecutado correctamente.
-- ctrl-C, ctrl-D y ctrl-\
+- $?
+- ctrl-C y ctrl-\
+
+
 Cosas hechas
 - prompt
 - lanzar ejecutables
@@ -17,3 +19,5 @@ Cosas hechas
 - varios comando con ";"
 - builtin_export
 - variables de entorno
+- builtin_unset
+- ctrl-D

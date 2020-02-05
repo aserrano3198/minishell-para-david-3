@@ -12,6 +12,7 @@ int     launch(shell_t *shell, char *path_exec)
         {
             ft_putstr_fd("minishell: command not found: ", 2);
             ft_putendl_fd(path_exec, 2);
+            return (0);
         }
         exit(1);
     }

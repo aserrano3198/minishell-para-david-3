@@ -140,7 +140,7 @@ void            ft_pipe(shell_t *shell, char *command_execute)
             shell->cmd_exec_parsed = ft_split(pipetab[i], ' ');
             free(pipetab[0]);
             parse_env_vars(shell);
-            exec_command(shell);
+            shell->status_last_command = exec_command(shell);
             free_command(shell->cmd_exec_parsed);
             close(shell->fd[0]);
             exit(EXIT_SUCCESS);
@@ -156,7 +156,7 @@ void            ft_pipe(shell_t *shell, char *command_execute)
                 shell->cmd_exec_parsed = ft_split(pipetab[i + 1], ' ');
                 free(pipetab[1]);
                 parse_env_vars(shell);
-                exec_command(shell);
+                shell->status_last_command = exec_command(shell);
                 free_command(shell->cmd_exec_parsed);
                 exit(EXIT_SUCCESS);
             } 
@@ -192,7 +192,7 @@ int             parse_commands(shell_t *shell)
         shell->cmd_exec_parsed = ft_split(command_execute, ' ');
         free(command_execute);
         parse_env_vars(shell);
-        if (!(exec_command(shell)))
+        if (!(shell->status_last_command = exec_command(shell)))
             return (0);
         free_command(shell->cmd_exec_parsed);
     }

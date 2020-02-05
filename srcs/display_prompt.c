@@ -84,6 +84,24 @@ int         find_env_var(shell_t *shell, char *env_to_find)
     return (0);
 }
 
+int        del_env_var(shell_t *shell, char *env_to_del)
+{
+    int     i;
+    size_t  len_path;
+    char    *tmp;
+
+    tmp = ft_strjoin(env_to_del, "=");
+    len_path = ft_strlen(tmp);
+    i = -1;
+    while (shell->env[++i])
+        if ((ft_strncmp(shell->env[i], tmp, len_path)) == 0)
+        {
+            shell->env = ft_arraydelone(shell->env, tmp);
+            break ;
+        }
+    return (0);
+}
+
 void        display_prompt(shell_t *shell)
 {
     char    *path_dir;
