@@ -51,11 +51,15 @@ void        banner(shell_t *shell)
     ft_printf("\e[90m/********************************************************\\\e[0m\n");
 }
 
-void         handle_signal(int test)
+void         handle_signal(int signal)
 {
-    (void)test;
-    ft_printf("\n");
-    display_prompt();
+    if (signal == SIGINT)
+    {
+        ft_printf("\n");
+        display_prompt();
+    }
+    else if (signal == SIGQUIT)
+        ;
 }
 
 int         main(int argc, char *argv[], char *env[])
@@ -69,6 +73,7 @@ int         main(int argc, char *argv[], char *env[])
     banner(shell);
     status = 1;
     signal(SIGINT, handle_signal);
+    signal(SIGQUIT, handle_signal);
     while (status)
     {
         display_prompt();
