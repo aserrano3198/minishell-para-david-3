@@ -88,7 +88,6 @@ int         main(int argc, char *argv[], char *env[])
         free(line);
         parse_commands(shell);
         free(shell->commands);
-        ft_printf("Stat last command: %d\n", shell->status_last_command);
     }
     //Liberar todo
     return (EXIT_SUCCESS);
