@@ -36,6 +36,7 @@ int     find_env_var(shell_t *shell, char *env_to_find);
 char    *get_env_var(shell_t *shell, char *env, char *delim);
 void    set_env_var(shell_t *shell, char *env, char *new_path);
 int     del_env_var(shell_t *shell, char *env_to_del);
+char    *ft_replacestr(char *str_to_replace, char *replace, char *value);
 int     builtin_env(shell_t *shell);
 int     ft_error(char *str);
 int     parse_commands(shell_t *shell);

@@ -17,7 +17,9 @@ int             get_status_var(char *var)
 
     i = 0;
     len = ft_strlenchr(var, '$');
-    if (var[0] == '$' && var[1] != '\0')
+    if (var[len] == '$' && var[len + 1] == '?')
+        return (3);
+    else if (var[0] == '$' && var[1] != '\0')
         return (2);
     else if (var[len] == '$' && var[len + 1] == '\0')
         return (0);
@@ -95,6 +97,15 @@ void            update_command(shell_t *shell, char **cmnd_to_upd, int status)
         else
             shell->cmd_exec_parsed = ft_arraydelone(shell->cmd_exec_parsed, ft_strdup(*cmnd_to_upd));
     }
+    else if (status == 3)
+    {
+        if (shell->status_last_command == 1)
+            tmp = ft_strdup("0");
+        else
+            tmp = ft_strdup("127");
+        *cmnd_to_upd = ft_replacestr(ft_strdup(*cmnd_to_upd), "$?", tmp);
+        free(tmp);
+    }
     free(env_var);
 }
 
@@ -120,57 +131,51 @@ void            ft_pipe(shell_t *shell, char *command_execute)
     char **pipetab;
     pid_t   pid1;
     pid_t   pid2;
-    int     i;
     int in;
     int out;
 
-    i = -1;
     in = dup(STDIN_FILENO);
     out = dup(STDOUT_FILENO);
     pipe(shell->fd);
     pipetab = ft_split(command_execute, '|');
-    while (pipetab[++i])
+    pid1 = fork();
+    if (pid1 == 0)
     {
-        pid1 = fork();
-        if (pid1 == 0)
+        close(shell->fd[0]);
+        dup2(shell->fd[1], STDOUT_FILENO);
+        close(shell->fd[1]);
+        shell->cmd_exec_parsed = ft_split(pipetab[0], ' ');
+        free(pipetab[0]);
+        parse_env_vars(shell);
+        shell->status_last_command = exec_command(shell);
+        free_command(shell->cmd_exec_parsed);
+        close(shell->fd[0]);
+        exit(EXIT_SUCCESS);
+    }
+    else
+    {
+        pid2 = fork();
+        if (pid2 == 0)
         {
-            close(shell->fd[0]);
-            dup2(shell->fd[1], STDOUT_FILENO);
             close(shell->fd[1]);
-            shell->cmd_exec_parsed = ft_split(pipetab[i], ' ');
-            free(pipetab[0]);
+            dup2(shell->fd[0], STDIN_FILENO);
+            close(shell->fd[0]);
+            shell->cmd_exec_parsed = ft_split(pipetab[1], ' ');
+            free(pipetab[1]);
             parse_env_vars(shell);
             shell->status_last_command = exec_command(shell);
             free_command(shell->cmd_exec_parsed);
-            close(shell->fd[0]);
             exit(EXIT_SUCCESS);
-        }
+        } 
         else
         {
-            pid2 = fork();
-            if (pid2 == 0)
-            {
-                close(shell->fd[1]);
-                dup2(shell->fd[0], STDIN_FILENO);
-                close(shell->fd[0]);
-                shell->cmd_exec_parsed = ft_split(pipetab[i + 1], ' ');
-                free(pipetab[1]);
-                parse_env_vars(shell);
-                shell->status_last_command = exec_command(shell);
-                free_command(shell->cmd_exec_parsed);
-                exit(EXIT_SUCCESS);
-            } 
-            else
-            {
-                close(shell->fd[1]);
-                wait(NULL);
-                wait(NULL);
-                dup2(in, STDIN_FILENO);
-                dup2(out, STDOUT_FILENO);
-            } 
+            close(shell->fd[1]);
+            wait(NULL);
+            wait(NULL);
+            dup2(in, STDIN_FILENO);
+            dup2(out, STDOUT_FILENO);
         } 
     }
-    
 }
 
 int             parse_commands(shell_t *shell)
@@ -192,8 +197,7 @@ int             parse_commands(shell_t *shell)
         shell->cmd_exec_parsed = ft_split(command_execute, ' ');
         free(command_execute);
         parse_env_vars(shell);
-        if (!(shell->status_last_command = exec_command(shell)))
-            return (0);
+        shell->status_last_command = exec_command(shell);
         free_command(shell->cmd_exec_parsed);
     }
     return (1);

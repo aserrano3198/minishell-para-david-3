@@ -4,7 +4,6 @@ Cosas que quedan por hacer:
 - el comportamineto para " y '
 - redirecciones <, > y “>>”
 - pipes
-- $?
 
 
 Cosas hechas
@@ -22,3 +21,4 @@ Cosas hechas
 - ctrl-D
 - ctrl-C
 - ctrl-\
+- $?

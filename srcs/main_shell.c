@@ -30,6 +30,7 @@ shell_t     *init_save_env(int argc, char *argv[], char *env[])
             return (NULL);
     shell->fd[0] = 1;
     shell->fd[1] = 1;
+    shell->status_last_command = 1;
     return (shell);
 }
 
@@ -79,13 +80,15 @@ int         main(int argc, char *argv[], char *env[])
         display_prompt();
         if (get_next_line(STDIN_FILENO, &line) == 0 && line[0] == '\0')
         {
+            //liberar todo
             ft_printf("exit\n");
-            break;
+            break ;
         }
         shell->commands = ft_split(line, ';');
         free(line);
-        status = parse_commands(shell);
+        parse_commands(shell);
         free(shell->commands);
+        ft_printf("Stat last command: %d\n", shell->status_last_command);
     }
     //Liberar todo
     return (EXIT_SUCCESS);
