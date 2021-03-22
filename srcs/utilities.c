@@ -1,51 +1,77 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utilities.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aserrano <aserrano@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/11 16:05:52 by aserrano          #+#    #+#             */
+/*   Updated: 2020/02/11 16:06:58 by aserrano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int     is_replace(char *str, int pos, char *replace)
+int				ft_strlenchr(char *str, char delim)
 {
-    int     i;
+	int		i;
+	int		found;
 
-    i = 0;
-    while (str[pos])
-    {
-        if (str[pos] == replace[i])
-        {
-            i++;
-            pos++;
-        }
-        else
-            break ;
-        if (replace[i] == '\0')
-            return (1);
-    }
-    return (0);
+	found = 0;
+	i = -1;
+	while (str[++i] && found != 1)
+		if (str[i] == delim)
+			found = 1;
+	if (found == 0)
+		return (0);
+	else
+		return (i - 1);
 }
 
-char    *ft_replacestr(char *str_to_replace, char *replace, char *value)
+char			*ft_strbgchr(char *str, char delim)
 {
-    char    *str_replaced;
-    int     len;
-    int     i;
-    int     j;
-    int     t;
+	int		i;
+	int		len;
+	char	*new_str;
 
-    len = ft_strlen(str_to_replace) - ft_strlen(replace) + ft_strlen(value);
-    if (!(str_replaced = (char*)malloc(sizeof(char) * (len + 1))))
-        return (NULL);
-    i = 0;
-    j = 0;
-    while (str_to_replace[i])
-    {
-        if (is_replace(str_to_replace, i, replace))
-        {
-            t = 0;
-            while (value[t])
-                str_replaced[j++] = value[t++];
-            i += ft_strlen(replace);
-        }
-        if (str_to_replace[i])
-            str_replaced[j++] = str_to_replace[i++];
-    }
-    free(str_to_replace);
-    str_replaced[j] = '\0';
-    return (str_replaced);
+	i = -1;
+	len = ft_strlenchr(str, delim);
+	if (!(new_str = ft_substr(str, 0, len)))
+		return (NULL);
+	return (new_str);
+}
+
+size_t			ft_arraylen(char **array)
+{
+	int		i;
+
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
+}
+
+char			**ft_arraydelone(char **array, char *to_delete)
+{
+	size_t		len_array;
+	size_t		len_delete;
+	char		**new_array;
+	int			i;
+	int			j;
+
+	len_delete = ft_strlen(to_delete);
+	len_array = ft_arraylen(array);
+	if (!(new_array = (char**)malloc(sizeof(char*) * (len_array))))
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (array[++i])
+		if (ft_strncmp(array[i], to_delete, len_delete) != 0)
+			new_array[j++] = array[i];
+		else
+			free(array[i]);
+	new_array[j] = NULL;
+	free(array);
+	free(to_delete);
+	return (new_array);
 }
