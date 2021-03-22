@@ -8,8 +8,7 @@
     As beautiful as a shell
     <br />
     <a href="https://github.com/pabloocg/minishell/tree/master/srcs"><strong>Explore the docs »</strong></a>
- 
- 
+ <br />
  
  
  
