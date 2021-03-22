@@ -9,9 +9,8 @@
     <br />
     <a href="https://github.com/pabloocg/minishell/tree/master/srcs"><strong>Explore the docs »</strong></a>
   </p>
+  <img src="record.gif" width="500" height="400" />
 </p>
-
-<img src="record.gif" width="500" height="400" />
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
