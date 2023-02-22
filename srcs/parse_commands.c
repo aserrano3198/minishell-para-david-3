@@ -23,6 +23,7 @@ int				parse_pipe(t_shell *shell, char *command)
 	i = -1;
 	while (pipetab[++i])
 	{
+		printf("PIPETAB: %s\n", pipetab[i]);
 		ft_redirection_pipe(shell, &pipetab[i]);
 		parse_spaces = ft_strtrim(pipetab[i], " ");
 		if (pipetab[i + 1] == NULL)
@@ -45,6 +46,7 @@ void			parse_commands(t_shell *shell)
 	i = -1;
 	while (shell->commands[++i])
 	{
+		printf("ESTOOOO %s\n", shell->commands[i]);
 		command_execute = ft_strtrim(shell->commands[i], " ");
 		free(shell->commands[i]);
 		if (ft_strchr(command_execute, '|') &&

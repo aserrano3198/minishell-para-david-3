@@ -30,11 +30,10 @@ int				ft_strlenchr(char *str, char delim)
 
 char			*ft_strbgchr(char *str, char delim)
 {
-	int		i;
 	int		len;
 	char	*new_str;
 
-	i = -1;
+	
 	len = ft_strlenchr(str, delim);
 	if (!(new_str = ft_substr(str, 0, len)))
 		return (NULL);

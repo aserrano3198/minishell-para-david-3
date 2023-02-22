@@ -14,10 +14,8 @@
 
 int				get_status_var(char *var)
 {
-	int		i;
 	int		len;
 
-	i = 0;
 	len = ft_strlenchr(var, '$');
 	if (var[len] == '$' && var[len + 1] == '?')
 		return (3);
